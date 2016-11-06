@@ -17,6 +17,7 @@ export default class SimpleCommentScreen extends BaseComponent {
       isSaving: false,
       fetchCommentsError: null,
       submitCommentError: null,
+      locale: 'en',
     };
 
     _.bindAll(this, 'fetchComments', 'handleCommentSubmit');
@@ -24,6 +25,7 @@ export default class SimpleCommentScreen extends BaseComponent {
 
   componentDidMount() {
     this.fetchComments();
+    this.initialize18n();
   }
 
   fetchComments() {
@@ -33,6 +35,20 @@ export default class SimpleCommentScreen extends BaseComponent {
         .then(res => this.setState({ $$comments: Immutable.fromJS(res.data.comments) }))
         .catch(error => this.setState({ fetchCommentsError: error }))
     );
+  }
+
+  initialize18n() {
+    I18n.defaultLocale = 'en';
+    I18n.fallbacks     = true;
+    this.setI18nLocale();
+  }
+
+  setI18nLocale() {
+    I18n.locale = this.state.locale;
+  }
+
+  updateLocale(event) {
+    this.setState({ locale: event.target.value });
   }
 
   handleCommentSubmit(comment) {
@@ -65,6 +81,18 @@ export default class SimpleCommentScreen extends BaseComponent {
     );
   }
 
+  selectLanguage() {
+    return (
+      <select onChange={this.updateLocale.bind(this)} >
+        <option value="en">English</option>
+        <option value="de">Deutsch</option>
+        <option value="ja">日本語</option>
+        <option value="zh-CN">简体中文</option>
+        <option value="zh-TW">正體中文</option>
+      </select>
+    );
+  }
+
   render() {
     const cssTransitionGroupClassNames = {
       enter: css.elementEnter,
@@ -72,10 +100,12 @@ export default class SimpleCommentScreen extends BaseComponent {
       leave: css.elementLeave,
       leaveActive: css.elementLeaveActive,
     };
+    this.setI18nLocale();
 
     return (
       <div className="commentBox container">
-        <h2>Comments</h2>
+        <h2>{ I18n.t('comments') }</h2>
+        { this.selectLanguage() }
         <p>
           Text take Github Flavored Markdown. Comments older than 24 hours are deleted.<br />
           <b>Name</b> is preserved. <b>Text</b> is reset, between submits.
