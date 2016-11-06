@@ -1,0 +1,16 @@
+zh-CN:
+  type: "简体中文"
+  comments: "留言"
+  form:
+    horizontal: "水平格式"
+    stacked: "堆叠格式"
+    inline: "内嵌格式"
+  input:
+    name:
+      label: "名字"
+      placeholder: "你的名字"
+    text:
+      label: "内容"
+      placeholder: "使用markdown说些什么..."
+    saving: "储存"
+    post: "发表"

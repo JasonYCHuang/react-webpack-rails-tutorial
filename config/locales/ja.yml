@@ -1,0 +1,16 @@
+ja:
+  type: "日本語"
+  comments: "注釈"
+  form:
+    horizontal: "水平フォーム"
+    stacked: "積み上げフォーム"
+    inline: "インラインフォーム"
+  input:
+    name:
+      label: "名称"
+      placeholder: "あなたの名称"
+    text:
+      label: "本文"
+      placeholder: "何かがマークダウンを使用して言います..."
+    saving: "保存"
+    post: "出します"

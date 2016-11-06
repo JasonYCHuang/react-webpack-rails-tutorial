@@ -1,0 +1,16 @@
+de:
+  type: "Deutsch"
+  comments: "Bemerkungen"
+  form:
+    horizontal: "Horizontale Form"
+    stacked: "Gestapelte Form"
+    inline: "Inline Form"
+  input:
+    name:
+      label: "Name"
+      placeholder: "Dein Name"
+    text:
+      label: "Text"
+      placeholder: "Sagen Sie etwas mit markdown..."
+    saving: "Speichern"
+    post: "Schreiben"
