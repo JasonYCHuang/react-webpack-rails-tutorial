@@ -1,6 +1,10 @@
 en:
   type: "English"
   comments: "Comments"
+  description:
+    support_markdown: "Text supports Github Flavored Markdown."
+    delete_rule: "Comments older than 24 hours are deleted."
+    submit_rule: "Name is preserved. Text is reset, between submits."
   form:
     horizontal: "Horizontal Form"
     stacked: "Stacked Form"
