@@ -106,10 +106,10 @@ export default class SimpleCommentScreen extends BaseComponent {
       <div className="commentBox container">
         <h2>{ I18n.t('comments') }</h2>
         { this.selectLanguage() }
-        <p>
-          Text take Github Flavored Markdown. Comments older than 24 hours are deleted.<br />
-          <b>Name</b> is preserved. <b>Text</b> is reset, between submits.
-        </p>
+        <p>{ I18n.t('description.support_markdown') }</p>
+        <p>{ I18n.t('description.delete_rule') }</p>
+        <p>{ I18n.t('description.submit_rule') }</p>
+
         <CommentForm
           isSaving={this.state.isSaving}
           actions={{ submitComment: this.handleCommentSubmit }}

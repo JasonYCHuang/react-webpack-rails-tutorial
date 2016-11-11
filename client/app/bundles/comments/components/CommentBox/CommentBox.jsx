@@ -41,11 +41,10 @@ export default class CommentBox extends BaseComponent {
           { I18n.t('comments') } {data.get('isFetching') && 'Loading...'}
         </h2>
         { SelectLanguage(actions.setLocale) }
-        <p>
-          <b>Text</b> supports Github Flavored Markdown.
-          Comments older than 24 hours are deleted.<br />
-          <b>Name</b> is preserved. <b>Text</b> is reset, between submits.
-        </p>
+        <p>{ I18n.t('description.support_markdown') }</p>
+        <p>{ I18n.t('description.delete_rule') }</p>
+        <p>{ I18n.t('description.submit_rule') }</p>
+
         <CommentForm
           isSaving={data.get('isSaving')}
           error={data.get('submitCommentError')}
