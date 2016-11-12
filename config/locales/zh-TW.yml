@@ -4,7 +4,7 @@ zh-TW:
   description:
     support_markdown: "支援 Github Flavored Markdown。"
     delete_rule: "評論於24小時後移除。"
-    submit_rule: "評論之間， 保留名字並移除內容。"
+    submit_rule: "送出評論後， 名字保留並移除內容。"
   form:
     horizontal: "水平格式"
     stacked: "堆疊格式"
