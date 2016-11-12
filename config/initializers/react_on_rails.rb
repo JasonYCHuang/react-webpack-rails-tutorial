@@ -1,6 +1,6 @@
 module RenderingExtension
-  def self.custom_context(view_context)
-      { translations: I18n.backend.send(:translations) }
+  def self.custom_context(_view_context)
+    { translations: I18n.backend.send(:translations) }
   end
 end
 # Shown below are the defaults for configuration
