@@ -2,30 +2,38 @@ import React from 'react';
 import Immutable from 'immutable';
 import request from 'axios';
 import ReactOnRails from 'react-on-rails';
-
+import I18n from 'i18n-js';
 import BaseComponent from 'libs/components/BaseComponent';
 
 import CommentForm from '../CommentBox/CommentForm/CommentForm';
 import CommentList from '../CommentBox/CommentList/CommentList';
 import css from './SimpleCommentScreen.scss';
+import { InitI18n, SelectLanguage, SetI18nLocale } from '../../common/i18n';
 
-export default class SimpleCommentScreen extends BaseComponent {
-  constructor(props, context) {
-    super(props, context);
+export default (props, railsContext) => (
+  <SimpleCommentScreen {...props} railsContext={railsContext} />
+);
+
+class SimpleCommentScreen extends BaseComponent {
+  constructor(props) {
+    super(props);
+    const { railsContext } = props;
+
     this.state = {
       $$comments: Immutable.fromJS([]),
       isSaving: false,
       fetchCommentsError: null,
       submitCommentError: null,
-      locale: 'en',
+      locale: null,
     };
 
-    _.bindAll(this, 'fetchComments', 'handleCommentSubmit');
+    InitI18n(railsContext);
+    _.bindAll(this, 'fetchComments', 'handleCommentSubmit', 'handleSetI18nLocale');
   }
 
   componentDidMount() {
     this.fetchComments();
-    this.initialize18n();
+    this.handleSetI18nLocale(this.props.railsContext.i18nLocale);
   }
 
   fetchComments() {
@@ -35,20 +43,6 @@ export default class SimpleCommentScreen extends BaseComponent {
         .then(res => this.setState({ $$comments: Immutable.fromJS(res.data.comments) }))
         .catch(error => this.setState({ fetchCommentsError: error }))
     );
-  }
-
-  initialize18n() {
-    I18n.defaultLocale = 'en';
-    I18n.fallbacks     = true;
-    this.setI18nLocale();
-  }
-
-  setI18nLocale() {
-    I18n.locale = this.state.locale;
-  }
-
-  updateLocale(event) {
-    this.setState({ locale: event.target.value });
   }
 
   handleCommentSubmit(comment) {
@@ -81,16 +75,8 @@ export default class SimpleCommentScreen extends BaseComponent {
     );
   }
 
-  selectLanguage() {
-    return (
-      <select onChange={this.updateLocale.bind(this)} >
-        <option value="en">English</option>
-        <option value="de">Deutsch</option>
-        <option value="ja">日本語</option>
-        <option value="zh-CN">简体中文</option>
-        <option value="zh-TW">正體中文</option>
-      </select>
-    );
+  handleSetI18nLocale(locale) {
+    this.setState({ locale: locale });
   }
 
   render() {
@@ -100,12 +86,13 @@ export default class SimpleCommentScreen extends BaseComponent {
       leave: css.elementLeave,
       leaveActive: css.elementLeaveActive,
     };
-    this.setI18nLocale();
+    const { locale } = this.state;
+    SetI18nLocale(locale); 
 
     return (
       <div className="commentBox container">
         <h2>{ I18n.t('comments') }</h2>
-        { this.selectLanguage() }
+        { SelectLanguage(this.handleSetI18nLocale) }
         <p>{ I18n.t('description.support_markdown') }</p>
         <p>{ I18n.t('description.delete_rule') }</p>
         <p>{ I18n.t('description.submit_rule') }</p>
